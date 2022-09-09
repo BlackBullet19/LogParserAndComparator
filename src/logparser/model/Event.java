@@ -8,6 +8,17 @@ public class Event {
     private Action action;
     private ActionState state;
 
+    @Override
+    public String toString() {
+        return "Event{" +
+                "source='" + source + '\'' +
+                ", date='" + date + '\'' +
+                ", destination='" + destination + '\'' +
+                ", action=" + action +
+                ", state=" + state +
+                '}';
+    }
+
     public String getSource() {
         return source;
     }
@@ -46,5 +57,15 @@ public class Event {
 
     public void setState(ActionState state) {
         this.state = state;
+    }
+
+    public int getDestinationLength() {
+        return destination.length();
+    }
+
+    public int getSourceIntValueSum() {
+        String tmp = source.substring(0, 2);
+        int value = tmp.charAt(0) - '0' + tmp.charAt(1) - '0';//+ tmp.charAt(2)-'0';
+                return value;
     }
 }
