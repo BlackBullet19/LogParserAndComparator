@@ -1,5 +1,7 @@
 package logparser.model;
 
+import java.util.Objects;
+
 public class Event {
 
     private String source;
@@ -76,5 +78,18 @@ public class Event {
         String tmp = source.substring(0, 2);
         int value = tmp.charAt(0) - '0' + tmp.charAt(1) - '0';//+ tmp.charAt(2)-'0';
                 return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(destination, event.destination);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(destination);
     }
 }
