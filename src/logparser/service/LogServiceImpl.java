@@ -19,8 +19,6 @@ public class LogServiceImpl implements LogService {
 
     private EventService eventService;
 
-    public ArrayList<Event> eventArrayList = new ArrayList<>();
-
     public LogServiceImpl(UserService userService, EventService eventService) {
         this.userService = userService;
         this.eventService = eventService;
@@ -37,13 +35,13 @@ public class LogServiceImpl implements LogService {
         Scanner scanner = null;
         try {
             scanner = new Scanner(new File("C:\\Users\\Oleja\\OneDrive\\Рабочий стол\\HW_TelRan\\HW be\\HippodromeLesson\\log.txt"));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Map<User, Event> pair = createEventFromString(line);
+                addDataToUserEventList(pair);
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            Map<User, Event> pair = createEventFromString(line);
-            addDataToUserEventList(pair);
         }
     }
 
@@ -58,7 +56,6 @@ public class LogServiceImpl implements LogService {
         event.setAction(Action.valueOf(data[4]));
         event.setState(ActionState.valueOf(data[5]));
         map.put(user, event);
-        eventArrayList.add(event);
 
         return map;
     }
@@ -101,35 +98,5 @@ public class LogServiceImpl implements LogService {
             }
             userEventListByDate.put(user, dateEventMap);
         }
-    }
-
-    public void compareEventsWithComparator() {
-        Comparator<Event> compareActionState = new Comparator<Event>() {
-            @Override
-            public int compare(Event o1, Event o2) {
-                return o1.getState().compareTo(o2.getState());
-            }
-        };
-       Collections.sort(eventArrayList, compareActionState);
-       System.out.println(Arrays.toString(eventArrayList.toArray()));
-
-        Comparator<Event> compareDestination = new Comparator<Event>() {
-            @Override
-            public int compare(Event o1, Event o2) {
-
-                return Integer.compare(o1.getDestinationLength(), o2.getDestinationLength());
-            }
-        };
-        Collections.sort(eventArrayList, compareDestination);
-        System.out.println(Arrays.toString(eventArrayList.toArray()));
-
-        Comparator<Event> compareSource = new Comparator<Event>() {
-            @Override
-            public int compare(Event o1, Event o2) {
-                return Integer.compare(o1.getSourceIntValueSum(), o2.getSourceIntValueSum());
-            }
-        };
-        Collections.sort(eventArrayList, compareSource);
-        System.out.println(Arrays.toString(eventArrayList.toArray()));
     }
 }

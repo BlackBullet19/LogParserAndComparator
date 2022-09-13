@@ -9,5 +9,4 @@ public interface LogService{
 
     Map<User, Map<String, List<Event>>> prepareStructure();
 
-    void compareEventsWithComparator();
 }

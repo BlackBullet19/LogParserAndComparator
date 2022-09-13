@@ -16,7 +16,6 @@ public class ParserApp {
         EventService eventService = new EventServiceImpl();
         LogService logService = new LogServiceImpl(userService, eventService);
         Map<User, Map<String, List<Event>>> userMapMap = logService.prepareStructure();
-        logService.compareEventsWithComparator();
 
     }
 }

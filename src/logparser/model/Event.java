@@ -8,6 +8,15 @@ public class Event {
     private Action action;
     private ActionState state;
 
+    public Event(String source, String destination, ActionState state) {
+        this.source = source;
+        this.destination = destination;
+        this.state = state;
+    }
+
+    public Event() {
+    }
+
     @Override
     public String toString() {
         return "Event{" +
